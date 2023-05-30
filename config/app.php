@@ -71,6 +71,8 @@ return [
 
     'timezone' => 'Africa/Cairo',
 
+    'currency' => 'USD',
+
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration
@@ -194,6 +196,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\CartServiceProvider::class,
+        App\Providers\FortifyServiceProvider::class
 
     ],
 
@@ -210,6 +214,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+         'Currency' => App\helpers\Currency::class,
+
     ])->toArray(),
 
 ];

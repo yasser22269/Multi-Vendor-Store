@@ -16,7 +16,7 @@
                     <img src="{{asset('Admin/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="{{route('dashboard.profile.edit')}}" class="d-block">{{Auth::user()->name}}</a>
+                    <a href="{{route('dashboard.profile.edit')}}" class="d-block">{{Auth::user()->name ?? ''}}</a>
                 </div>
             </div>
 
@@ -51,13 +51,16 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p>
-                                Simple Link
-                                <span class="right badge badge-danger">New</span>
-                            </p>
-                        </a>
+                        <form action="{{route('logout')}}" method="post">
+                            @csrf
+                            <button  class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>
+                                    Logout
+                                </p>
+                            </button>
+                        </form>
+
                     </li>
                 </ul>
             </nav>

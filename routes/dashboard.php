@@ -7,7 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\dashboard\ProfileController;
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->name('dashboard');
+    ->name('dashboard')->middleware('auth');
 
 Route::group(['middleware' => ['auth:admin,web'],
     'as' => 'dashboard.', // view in controller

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -29,6 +30,10 @@ class Product extends Model
         return $this->belongsTo(Store::class, 'store_id', 'id');
     }
 
+    public function scopeActive(Builder $builder)
+    {
+        $builder->where('status', '=', 'active');
+    }
     public function tags()
     {
         return $this->belongsToMany(
@@ -39,6 +44,24 @@ class Product extends Model
             'id',           // PK current model
             'id'            // PK related model
         );
+    }
+    protected function getImageUrlAttribute()
+    {
+        if (!$this->image) {
+            return 'https://cmsi-id.com/assets/product/01032016/pt-cahayatiara-mustika-scientific-indonesia_ggacg_295.png';
+        }
+        if (Str::startsWith($this->image, ['http://', 'https://'])) {
+            return $this->image;
+        }
+        return asset('storage/' . $this->image);
+    }
+
+    public function getSalePercentAttribute()
+    {
+        if (!$this->compare_price) {
+            return 0;
+        }
+        return round(100 - (100 * $this->price / $this->compare_price), 1);
     }
 }
 
